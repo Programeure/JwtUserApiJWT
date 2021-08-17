@@ -35,8 +35,9 @@ public class JwtUserApiApplication {
         user.setFirstname("Wadson");
         user.setLastname("Dutervil");
         user.setPhone("31340028");
+        user.setEnabled(true);
         user.setAuthorities(authorities);
-        //userRepository.save(user);
+        userRepository.save(user);
 
     }
 

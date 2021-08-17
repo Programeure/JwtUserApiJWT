@@ -8,14 +8,20 @@ import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Table(name="AUTH_USER_DETAILS")
+@Entity
 public class User  implements UserDetails {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String username;
     private String password;
@@ -24,13 +30,12 @@ public class User  implements UserDetails {
     private String email;
     private String phone;
     private boolean enabled;
-    //@ManyToMany(Cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    //@JoinTable(name="AUTH_USER_AUTORITY",JoinColumns=@JoinColumn(referencedColumnName="id"),inserveJoinColumns=@JoinColumn(referencedColumnName="id"))
-    private java.util.List<Authority> authorities;
+    @ManyToMany(cascade= CascadeType.ALL,fetch= FetchType.EAGER)
+    @JoinTable(name="AUTH_USER_AUTORITY",joinColumns=@JoinColumn(referencedColumnName="id"),inverseJoinColumns=@JoinColumn(referencedColumnName="id"))
+    private List<Authority> authorities;
 
 
-
-
+ 
     // Overriden Methodes
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -17,7 +17,7 @@ public class CostumUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user= userRepository.findByUserName(username);
+        User user= userRepository.findByUsername(username);
         if(null==user){
             throw new UsernameNotFoundException("User not found with username "+username);
         }
